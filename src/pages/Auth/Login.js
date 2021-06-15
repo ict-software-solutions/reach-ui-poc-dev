@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     height: theme.spacing(10),
   },
   form: {
-    width: "100%", // Fix IE 11 issue.
+    width: "100%",
     marginTop: theme.spacing(1),
   },
   checkbox: {
@@ -53,21 +53,26 @@ function Login(props) {
   const { history } = props;
   const formik = useFormik({
     initialValues: {
-      email: "",
+      username: "",
       password: "",
     },
 
     validationSchema: yup.object({
-      email: yup.string().email().required("email is required"),
+      username: yup
+        .string()
+        .required("username is required")
+        .min(6, "6 characters required"),
       password: yup
         .string()
         .required("password is required")
         .min(5, "5 characters required"),
     }),
 
-    onSubmit: async (Data) => {
-      console.log(Data);
-      history.push("/home");
+    onSubmit: (Data) => {
+      history.push({
+        pathname: "/home",
+        state: { user: Data.username },
+      });
     },
   });
 
@@ -84,15 +89,14 @@ function Login(props) {
             margin="normal"
             required
             fullWidth
-            id="email"
-            label="Email"
-            name="email"
-            autoComplete="email"
+            id="username"
+            label="Username"
+            name="username"
             autoFocus
-            value={formik.values.email}
+            value={formik.values.username}
             onChange={formik.handleChange}
-            helperText={formik.touched.email ? formik.errors.email : ""}
-            error={formik.touched.email ? formik.errors.email : ""}
+            helperText={formik.touched.username ? formik.errors.username : ""}
+            error={formik.touched.username ? formik.errors.username : ""}
           />
           <TextField
             variant="outlined"

@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import { AccordionItem } from "@reach/accordion";
 import "@reach/accordion/styles.css";
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = makeStyles(() => ({
   accordion: {
     backgroundColor: "#fff",
   },

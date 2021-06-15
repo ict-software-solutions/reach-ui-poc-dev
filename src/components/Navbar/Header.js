@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useHistory } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
 import IconButton from "@material-ui/core/IconButton";
@@ -86,6 +87,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function PrimarySearchAppBar(props) {
   const { window } = props;
+  const history = useHistory();
   const classes = useStyles();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -117,6 +119,9 @@ export default function PrimarySearchAppBar(props) {
   const handleMobileMenuOpen = (event) => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
+  const logout = () => {
+    history.push("/login");
+  };
 
   const menuId = "primary-search-account-menu";
   const renderMenu = (
@@ -131,6 +136,7 @@ export default function PrimarySearchAppBar(props) {
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
       <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={logout}>Logout</MenuItem>
     </Menu>
   );
 

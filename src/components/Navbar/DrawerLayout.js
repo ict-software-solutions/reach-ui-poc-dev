@@ -39,8 +39,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   drawerPaper: {
     width: drawerWidth,
-    // backgroundImage: `url(${"https://images3.alphacoders.com/100/1006696.png"})`,
-    background: "linear-gradient(45deg, #f53844 30%, #42378f 90%)",
+    backgroundImage: `url(${"https://images3.alphacoders.com/100/1006696.png"})`,
   },
   content: {
     flexGrow: 1,
@@ -77,6 +76,7 @@ function DrawerLayout({ open, seOpen, handleDrawerToggle, container }) {
   const classes = useStyles();
   const history = useHistory();
   const location = useLocation();
+
   const menuItems = [
     {
       text: "Home",
@@ -134,7 +134,6 @@ function DrawerLayout({ open, seOpen, handleDrawerToggle, container }) {
   return (
     <div>
       <nav className={classes.drawer} aria-label="mailbox folders">
-        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Hidden smUp implementation="css">
           <Drawer
             container={container}
@@ -146,7 +145,7 @@ function DrawerLayout({ open, seOpen, handleDrawerToggle, container }) {
               paper: classes.drawerPaper,
             }}
             ModalProps={{
-              keepMounted: true, // Better open performance on mobile.
+              keepMounted: true,
             }}
           >
             {drawer}
