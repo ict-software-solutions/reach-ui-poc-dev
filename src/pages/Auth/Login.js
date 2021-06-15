@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import Container from "@material-ui/core/Container";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
@@ -59,10 +58,7 @@ function Login(props) {
     },
 
     validationSchema: yup.object({
-      email: yup
-        .string()
-        .email()
-        .required("email is required"),
+      email: yup.string().email().required("email is required"),
       password: yup
         .string()
         .required("password is required")
@@ -71,7 +67,7 @@ function Login(props) {
 
     onSubmit: async (Data) => {
       console.log(Data);
-      history.push('/home');
+      history.push("/home");
     },
   });
 
@@ -93,6 +89,10 @@ function Login(props) {
             name="email"
             autoComplete="email"
             autoFocus
+            value={formik.values.email}
+            onChange={formik.handleChange}
+            helperText={formik.touched.email ? formik.errors.email : ""}
+            error={formik.touched.email ? formik.errors.email : ""}
           />
           <TextField
             variant="outlined"
@@ -100,6 +100,10 @@ function Login(props) {
             required
             fullWidth
             name="password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            helperText={formik.touched.password ? formik.errors.password : ""}
+            error={formik.touched.password ? formik.errors.password : ""}
             label="Password"
             type="password"
             id="password"
@@ -115,7 +119,7 @@ function Login(props) {
             fullWidth
             variant="contained"
             color="primary"
-            onClick={()=> history?.push('/home')}
+            onClick={formik.handleSubmit}
             className={classes.submit}
           >
             Sign In

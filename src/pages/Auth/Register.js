@@ -1,5 +1,4 @@
-import React, { useState, useContext } from "react";
-import Container from "@material-ui/core/Container";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
@@ -55,6 +54,7 @@ function Register(props) {
   const { history } = props;
   const formik = useFormik({
     initialValues: {
+      username: "",
       email: "",
       password: "",
     },
@@ -62,21 +62,18 @@ function Register(props) {
     validationSchema: yup.object({
       username: yup
         .string()
-        .required("email is required")
+        .required("username is required")
         .min(6, "6 characters required"),
-      email: yup
-        .string()
-        .email()
-        .required("email is required")
-        .min(6, "6 characters required"),
+      email: yup.string().email().required("email is required"),
       password: yup
         .string()
         .required("password is required")
         .min(5, "5 characters required"),
     }),
 
-    onSubmit: async (Data) => {
+    onSubmit: (Data) => {
       console.log(Data);
+      history.push("/login");
     },
   });
 
@@ -97,7 +94,10 @@ function Register(props) {
               id="username"
               label="Username"
               name="username"
-              autoFocus
+              value={formik.values.username}
+              onChange={formik.handleChange}
+              helperText={formik.touched.username ? formik.errors.username : ""}
+              error={formik.touched.username ? formik.errors.username : ""}
             />
             <TextField
               variant="outlined"
@@ -108,10 +108,10 @@ function Register(props) {
               label="Email"
               name="email"
               value={formik.values.email}
+              onChange={formik.handleChange}
               autoComplete="email"
-              autoFocus
-              helperText={formik.errors.email}
-              error={formik.errors.email && formik.touched.email}
+              helperText={formik.touched.email ? formik.errors.email : ""}
+              error={formik.touched.email ? formik.errors.email : ""}
             />
             <TextField
               variant="outlined"
@@ -120,6 +120,10 @@ function Register(props) {
               fullWidth
               name="password"
               value={formik.values.password}
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              helperText={formik.touched.password ? formik.errors.password : ""}
+              error={formik.touched.password ? formik.errors.password : ""}
               label="Password"
               type="password"
               id="password"
